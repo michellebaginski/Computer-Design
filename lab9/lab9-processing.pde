@@ -1,5 +1,4 @@
-/* Michelle Baginski; mbagin3; 676954872
- * Lab 9: Using Arduino with Processing
+/* Lab 9: Using Arduino with Processing
  * The code will map values read from a photoresistor and a potentiometer to a graph using processing.
  * References: https://learn.sparkfun.com/tutorials/connecting-arduino-to-processing#introduction
  * https://www.arduino.cc/en/Tutorial/Graph
