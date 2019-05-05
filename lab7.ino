@@ -5,37 +5,34 @@
  * https://iotguider.in/arduino/serial-communication-between-two-arduino-boards/
  */
 
-int val1, val2;
-int LED = 12;   // LED connected to digital pin 12
-int BUTTON = 7; // button connected to digital pin 7
+int val1, val2; // values for reading button presses
+int LED = 12;   // LEDs are connected to digital pin 12 on each arduino
+int BUTTON = 7; // buttons connected to digital pin 7 on each arduino
 
 void setup() {
   pinMode(LED, OUTPUT); 
   pinMode(BUTTON, INPUT);
-  Serial.begin(9600);
-
+  Serial.begin(9600); // open the serial port
 }
 
 void loop() {
   // initial read from the button
-  val1 = digitalRead(BUTTON);  
-
-  // button is read as pressed
-  if (val1 == 1) {
-    delay(50);  // delay for debouncing
-    val2 = digitalRead(BUTTON);
-    if (val2 == 0) {
-       Serial.write("Pressed");
-    }
+  val1 = digitalRead(BUTTON); 
+  delay(50);  // delay for debouncing
+  val2 = digitalRead(BUTTON);  // read the button again
+  // if val1 and val2 are the same and they are both high, then the button was pressed
+  if (val1 == val2 && val1 == HIGH) {
+    Serial.write("Pressed");
   }
 
-  if(Serial.available() > 0 && Serial.read() != -1) {
-     if (digitalRead(led) == LOW) {
-      digitalWrite(led, HIGH);
+  // Serial.available() > 0 tells how many characters are available in the buffer to be read in
+  // Serial.read() will read the first byte of incoming data, or -1 if it is not available
+  if (Serial.available() > 0 && Serial.read() != -1) {
+     if (digitalRead(LED) == LOW) { // if the light is not on, light it
+      digitalWrite(LED, HIGH);
     }
-    else {
-      digitalWrite(led, LOW);
+    else {  // if the light is already on, turn it off
+      digitalWrite(LED, LOW);
     }
   }
-
 }
